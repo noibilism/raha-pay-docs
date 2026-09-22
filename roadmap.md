@@ -15,3 +15,16 @@
 - [x] Rewrite guides in Raha Pay voice and required page order
 - [x] Normalize API paths, snake_case fields, envelopes, IDs, events, HMAC-SHA256, and errors
 - [x] Verify every navigation link, search result, page, forbidden term, and responsive layout
+
+## Rich documentation redesign
+
+- [ ] Centralize public API URLs, credentials, signature header, dashboard, support, and status links
+- [ ] Rebuild Welcome as a developer landing page with cards, first request, rails, guides, sandbox band, and footer
+- [ ] Replace fixed guide templates with page-specific long-form content and persistent language examples
+- [ ] Add desktop two-pane guide layouts with scroll-linked code and mobile step examples
+- [ ] Expand endpoint data and rebuild API detail pages with parameter, response, status, error, and code panes
+- [ ] Replace sequence tables with branded swimlane diagrams
+- [ ] Add icons, speed-line accents, zebra tables, status pills, markdown-safe rich text, and section spacing
+- [ ] Add searchable errors, event payload catalogue, and Kenyan bank/network reference data
+- [ ] Add /reference and repair all external and internal links
+- [ ] Verify light, dark, and 375px mobile views for home, guide, and endpoint pages
