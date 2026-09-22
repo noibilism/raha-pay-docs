@@ -12,8 +12,8 @@ export const Route=createFileRoute("/api/chat")({server:{handlers:{POST:async({r
     const visitor=request.headers.get("X-Visitor-Id")?.slice(0,100); const messages=body.messages ?? []; const question=textOf(messages.at(-1) ?? {id:"",role:"user",parts:[]});
     if(!visitor||!question)return Response.json({error:"invalid_request"},{status:400});
     const visitorHash=hashVisitor(visitor);
-    if(!(await useQuestionAllowance(visitorHash)))return Response.json({error:"rate_limited"},{status:429,headers:{"Retry-After":"3600"}});
     if(containsSecret(question)){await logAssistantQuestion(visitorHash,"[redacted: secret-like value]",[]);return Response.json({error:"secret_detected",message:"Remove secret keys or signatures before asking a question."},{status:400})}
+    if(!(await useQuestionAllowance(visitorHash)))return Response.json({error:"rate_limited"},{status:429,headers:{"Retry-After":"3600"}});
     const chunks=retrieveAssistantChunks(`${question} ${body.pageContext ?? ""} ${body.snippet ?? ""}`);
     const sources=[...new Map(chunks.map((c)=>[c.sourceUrl,c])).values()];
     const context=chunks.map((c,index)=>`SOURCE ${index+1}: ${c.sourceLabel}\nURL: ${c.sourceUrl}\n${c.text}`).join("\n\n");

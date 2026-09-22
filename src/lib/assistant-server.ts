@@ -14,3 +14,9 @@ export async function useQuestionAllowance(visitorHash:string) {
 export async function logAssistantQuestion(visitorHash:string,question:string,sourceUrls:string[]){
   const { data }=await supabaseAdmin.from("assistant_question_logs").insert({visitor_hash:visitorHash,question,source_urls:sourceUrls}).select("id").single(); return data?.id;
 }
+export async function rateLatestAssistantQuestion(visitorHash:string,rating:"up"|"down"){
+  const {data}=await supabaseAdmin.from("assistant_question_logs").select("id").eq("visitor_hash",visitorHash).order("created_at",{ascending:false}).limit(1).maybeSingle();
+  if(!data)return false;
+  const {error}=await supabaseAdmin.from("assistant_question_logs").update({rating}).eq("id",data.id).eq("visitor_hash",visitorHash);
+  return !error;
+}

@@ -35,4 +35,4 @@
 - [x] Replace Dedicated accounts with Kenya Virtual accounts guides and six API endpoints
 - [x] Add grounded, streaming Raha Pay Assistant with secret blocking and visitor limits
 - [x] Add AI-readable llms.txt and Markdown mirrors
-- [ ] Complete responsive, dark-mode, route and live assistant validation
+- [x] Complete responsive, dark-mode, route and assistant validation
