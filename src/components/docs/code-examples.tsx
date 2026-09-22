@@ -14,9 +14,9 @@ export function requestExamples(endpoint: ApiEndpoint): Record<CodeLanguage, str
   const url = endpointUrl(endpoint);
   const body = endpoint.request ? JSON.stringify(endpoint.request, null, 2) : "";
   const create = endpoint.method === "POST";
-  const headers = `${create ? ` \\\n+  -H "Idempotency-Key: request-10492"` : ""}${body ? ` \\\n+  -H "Content-Type: application/json"` : ""}`;
+  const headers = `${create ? ` \\\n  -H "Idempotency-Key: request-10492"` : ""}${body ? ` \\\n  -H "Content-Type: application/json"` : ""}`;
   return {
-    curl: `curl -X ${endpoint.method} "${url}" \\\n+  -H "Authorization: Bearer {{SECRET_KEY_PREFIX}}test_example"${headers}${body ? ` \\\n+  -d '${body}'` : ""}`,
+    curl: `curl -X ${endpoint.method} "${url}" \\\n  -H "Authorization: Bearer {{SECRET_KEY_PREFIX}}test_example"${headers}${body ? ` \\\n  -d '${body}'` : ""}`,
     node: `const response = await fetch("${url}", {\n  method: "${endpoint.method}",\n  headers: {\n    Authorization: "Bearer {{SECRET_KEY_PREFIX}}test_example"${create ? ',\n    "Idempotency-Key": "request-10492"' : ""}${body ? ',\n    "Content-Type": "application/json"' : ""}\n  }${body ? `,\n  body: JSON.stringify(${body})` : ""}\n});\n\nconst result = await response.json();`,
     python: `response = requests.${endpoint.method.toLowerCase()}(\n    "${url}",\n    headers={\n        "Authorization": "Bearer {{SECRET_KEY_PREFIX}}test_example"${create ? ',\n        "Idempotency-Key": "request-10492"' : ""}\n    }${body ? `,\n    json=${body.replaceAll("true", "True").replaceAll("false", "False")}` : ""}\n)\n\nresult = response.json()`,
     php: `$response = $client->request('${endpoint.method}', '${url}', [\n  'headers' => [\n    'Authorization' => 'Bearer {{SECRET_KEY_PREFIX}}test_example'${create ? ",\n    'Idempotency-Key' => 'request-10492'" : ""}\n  ]${body ? `,\n  'json' => ${body}` : ""}\n]);`,
