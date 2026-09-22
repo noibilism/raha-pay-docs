@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
-export const hashVisitor=(visitorId:string)=>createHash("sha256").update(`${visitorId}:${process.env.SUPABASE_SERVICE_ROLE_KEY ?? "rahapay"}`).digest("hex");
+export const hashVisitor=(visitorId:string)=>createHash("sha256").update(`${visitorId}:${process.env["SUPABASE_SERVICE_ROLE_KEY"] ?? "rahapay"}`).digest("hex");
 export async function useQuestionAllowance(visitorHash:string) {
   const windowStart=new Date(); windowStart.setMinutes(0,0,0);
   const { data:existing }=await supabaseAdmin.from("assistant_rate_limits").select("id,question_count").eq("visitor_hash",visitorHash).eq("window_start",windowStart.toISOString()).maybeSingle();

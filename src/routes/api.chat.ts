@@ -17,7 +17,7 @@ export const Route=createFileRoute("/api/chat")({server:{handlers:{POST:async({r
     const chunks=retrieveAssistantChunks(`${question} ${body.pageContext ?? ""} ${body.snippet ?? ""}`);
     const sources=[...new Map(chunks.map((c)=>[c.sourceUrl,c])).values()];
     const context=chunks.map((c,index)=>`SOURCE ${index+1}: ${c.sourceLabel}\nURL: ${c.sourceUrl}\n${c.text}`).join("\n\n");
-    const apiKey=process.env.LOVABLE_API_KEY;if(!apiKey)return Response.json({error:"ai_unconfigured"},{status:503});
+    const apiKey=process.env["LOVABLE_API_KEY"];if(!apiKey)return Response.json({error:"ai_unconfigured"},{status:503});
     const gateway=createOpenAI({apiKey,baseURL:"https://ai.gateway.lovable.dev/v1"});
     const result=streamText({model:gateway.responses("openai/gpt-6-astra"),system:`You are Raha Pay Assistant. Answer only from the supplied Raha Pay documentation context. If the answer is not supported, say you do not have that information in the docs. Be concise and practical. Never request or repeat credentials. Cite relevant pages using Markdown links with the exact source URLs.\n\n${context}`,messages:await convertToModelMessages(messages),maxOutputTokens:900,providerOptions:{openai:{reasoningEffort:"low",reasoningSummary:null}}});
     void logAssistantQuestion(visitorHash,sanitizeQuestion(question),sources.map((s)=>s.sourceUrl));

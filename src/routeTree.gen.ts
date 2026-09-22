@@ -15,11 +15,9 @@ import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as ReferenceRouteImport } from './routes/reference'
 import { Route as ApiReferenceIndexRouteImport } from './routes/api-reference.index'
 import { Route as ApiReferenceSlugRouteImport } from './routes/api-reference.$slug'
-import { Route as ApiReferenceSlugDotmdRouteImport } from './routes/api-reference.$slug[.]md'
 import { Route as ApiAssistantFeedbackRouteImport } from './routes/api.assistant-feedback'
 import { Route as ApiChatRouteImport } from './routes/api.chat'
 import { Route as GuidesSlugRouteImport } from './routes/guides.$slug'
-import { Route as GuidesSlugDotmdRouteImport } from './routes/guides.$slug[.]md'
 import { Route as GuidesAmountMismatchesRouteImport } from './routes/guides.amount-mismatches'
 import { Route as GuidesDedicatedAccountsRouteImport } from './routes/guides.dedicated-accounts'
 
@@ -53,11 +51,6 @@ const ApiReferenceSlugRoute = ApiReferenceSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ApiReferenceRoute,
 } as any)
-const ApiReferenceSlugDotmdRoute = ApiReferenceSlugDotmdRouteImport.update({
-  id: '/$slug.md',
-  path: '/$slug.md',
-  getParentRoute: () => ApiReferenceRoute,
-} as any)
 const ApiAssistantFeedbackRoute = ApiAssistantFeedbackRouteImport.update({
   id: '/api/assistant-feedback',
   path: '/api/assistant-feedback',
@@ -71,11 +64,6 @@ const ApiChatRoute = ApiChatRouteImport.update({
 const GuidesSlugRoute = GuidesSlugRouteImport.update({
   id: '/guides/$slug',
   path: '/guides/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GuidesSlugDotmdRoute = GuidesSlugDotmdRouteImport.update({
-  id: '/guides/$slug.md',
-  path: '/guides/$slug.md',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuidesAmountMismatchesRoute = GuidesAmountMismatchesRouteImport.update({
@@ -95,11 +83,9 @@ export interface FileRoutesByFullPath {
   '/llms.txt': typeof LlmsDottxtRoute
   '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
-  '/api-reference/$slug.md': typeof ApiReferenceSlugDotmdRoute
   '/api/assistant-feedback': typeof ApiAssistantFeedbackRoute
   '/api/chat': typeof ApiChatRoute
   '/guides/$slug': typeof GuidesSlugRoute
-  '/guides/$slug.md': typeof GuidesSlugDotmdRoute
   '/guides/amount-mismatches': typeof GuidesAmountMismatchesRoute
   '/guides/dedicated-accounts': typeof GuidesDedicatedAccountsRoute
   '/api-reference/': typeof ApiReferenceIndexRoute
@@ -109,11 +95,9 @@ export interface FileRoutesByTo {
   '/llms.txt': typeof LlmsDottxtRoute
   '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
-  '/api-reference/$slug.md': typeof ApiReferenceSlugDotmdRoute
   '/api/assistant-feedback': typeof ApiAssistantFeedbackRoute
   '/api/chat': typeof ApiChatRoute
   '/guides/$slug': typeof GuidesSlugRoute
-  '/guides/$slug.md': typeof GuidesSlugDotmdRoute
   '/guides/amount-mismatches': typeof GuidesAmountMismatchesRoute
   '/guides/dedicated-accounts': typeof GuidesDedicatedAccountsRoute
   '/api-reference': typeof ApiReferenceIndexRoute
@@ -125,11 +109,9 @@ export interface FileRoutesById {
   '/llms.txt': typeof LlmsDottxtRoute
   '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
-  '/api-reference/$slug.md': typeof ApiReferenceSlugDotmdRoute
   '/api/assistant-feedback': typeof ApiAssistantFeedbackRoute
   '/api/chat': typeof ApiChatRoute
   '/guides/$slug': typeof GuidesSlugRoute
-  '/guides/$slug.md': typeof GuidesSlugDotmdRoute
   '/guides/amount-mismatches': typeof GuidesAmountMismatchesRoute
   '/guides/dedicated-accounts': typeof GuidesDedicatedAccountsRoute
   '/api-reference/': typeof ApiReferenceIndexRoute
@@ -142,11 +124,9 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/reference'
     | '/api-reference/$slug'
-    | '/api-reference/$slug.md'
     | '/api/assistant-feedback'
     | '/api/chat'
     | '/guides/$slug'
-    | '/guides/$slug.md'
     | '/guides/amount-mismatches'
     | '/guides/dedicated-accounts'
     | '/api-reference/'
@@ -156,11 +136,9 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/reference'
     | '/api-reference/$slug'
-    | '/api-reference/$slug.md'
     | '/api/assistant-feedback'
     | '/api/chat'
     | '/guides/$slug'
-    | '/guides/$slug.md'
     | '/guides/amount-mismatches'
     | '/guides/dedicated-accounts'
     | '/api-reference'
@@ -171,11 +149,9 @@ export interface FileRouteTypes {
     | '/llms.txt'
     | '/reference'
     | '/api-reference/$slug'
-    | '/api-reference/$slug.md'
     | '/api/assistant-feedback'
     | '/api/chat'
     | '/guides/$slug'
-    | '/guides/$slug.md'
     | '/guides/amount-mismatches'
     | '/guides/dedicated-accounts'
     | '/api-reference/'
@@ -189,7 +165,6 @@ export interface RootRouteChildren {
   ApiAssistantFeedbackRoute: typeof ApiAssistantFeedbackRoute
   ApiChatRoute: typeof ApiChatRoute
   GuidesSlugRoute: typeof GuidesSlugRoute
-  GuidesSlugDotmdRoute: typeof GuidesSlugDotmdRoute
   GuidesAmountMismatchesRoute: typeof GuidesAmountMismatchesRoute
   GuidesDedicatedAccountsRoute: typeof GuidesDedicatedAccountsRoute
 }
@@ -238,13 +213,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiReferenceSlugRouteImport
       parentRoute: typeof ApiReferenceRoute
     }
-    '/api-reference/$slug.md': {
-      id: '/api-reference/$slug.md'
-      path: '/$slug.md'
-      fullPath: '/api-reference/$slug.md'
-      preLoaderRoute: typeof ApiReferenceSlugDotmdRouteImport
-      parentRoute: typeof ApiReferenceRoute
-    }
     '/api/assistant-feedback': {
       id: '/api/assistant-feedback'
       path: '/api/assistant-feedback'
@@ -266,13 +234,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuidesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/guides/$slug.md': {
-      id: '/guides/$slug.md'
-      path: '/guides/$slug.md'
-      fullPath: '/guides/$slug.md'
-      preLoaderRoute: typeof GuidesSlugDotmdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/guides/amount-mismatches': {
       id: '/guides/amount-mismatches'
       path: '/guides/amount-mismatches'
@@ -292,13 +253,11 @@ declare module '@tanstack/react-router' {
 
 interface ApiReferenceRouteChildren {
   ApiReferenceSlugRoute: typeof ApiReferenceSlugRoute
-  ApiReferenceSlugDotmdRoute: typeof ApiReferenceSlugDotmdRoute
   ApiReferenceIndexRoute: typeof ApiReferenceIndexRoute
 }
 
 const ApiReferenceRouteChildren: ApiReferenceRouteChildren = {
   ApiReferenceSlugRoute: ApiReferenceSlugRoute,
-  ApiReferenceSlugDotmdRoute: ApiReferenceSlugDotmdRoute,
   ApiReferenceIndexRoute: ApiReferenceIndexRoute,
 }
 
@@ -314,7 +273,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAssistantFeedbackRoute: ApiAssistantFeedbackRoute,
   ApiChatRoute: ApiChatRoute,
   GuidesSlugRoute: GuidesSlugRoute,
-  GuidesSlugDotmdRoute: GuidesSlugDotmdRoute,
   GuidesAmountMismatchesRoute: GuidesAmountMismatchesRoute,
   GuidesDedicatedAccountsRoute: GuidesDedicatedAccountsRoute,
 }
