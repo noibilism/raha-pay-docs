@@ -9,3 +9,9 @@
 
 - [x] Apply supplied Raha Pay brand assets and complete visual identity pass
 - [x] Derive the top-bar mark and favicon from the supplied Raha Pay logo
+
+- [ ] Remove all conversion, cross-currency, and scope-note content
+- [ ] Restructure guides into Start Here, Accept Payments, Send Money, Account, Events, and Reference
+- [ ] Rewrite guides in Raha Pay voice and required page order
+- [ ] Normalize API paths, snake_case fields, envelopes, IDs, events, HMAC-SHA256, and errors
+- [ ] Verify every navigation link, search result, page, forbidden term, and responsive layout
