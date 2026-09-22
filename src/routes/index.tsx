@@ -1,24 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import { DocsShell } from "@/components/docs/docs-shell";
+import { GuideContent } from "@/components/docs/doc-content";
+import { getGuide } from "@/data/guides";
+const guide=getGuide("introduction");
+export const Route=createFileRoute("/")({head:()=>({meta:[{title:"Rahapay API Documentation — KES Payments"},{name:"description",content:"Integrate KES collections, payouts, virtual accounts, balances and conversions with Rahapay."},{property:"og:title",content:"Rahapay API Documentation"},{property:"og:description",content:"Developer documentation for Rahapay's Kenya payments API."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:Index});
+function Index(){if(!guide)return null;return <DocsShell currentPath="/" anchors={guide.sections.map(s=>({id:s.id,title:s.title}))}><GuideContent guide={guide}/></DocsShell>}
