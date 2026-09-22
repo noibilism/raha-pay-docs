@@ -7,7 +7,7 @@ import { CodeBlock } from "./code-block";
 export const languageLabels: Record<CodeLanguage, string> = { curl: "cURL", node: "Node.js", python: "Python", php: "PHP" };
 
 function endpointUrl(endpoint: ApiEndpoint) {
-  return `{{BASE_URL}}${endpoint.path.replace("{payment_id}", "rp_pay_8Kq2Xw91").replace("{payout_id}", "rp_po_3Vn7Lm20").replace("{transaction_id}", "rp_pay_8Kq2Xw91")}`;
+  return `{{BASE_URL}}${endpoint.path.replace("{payment_id}", "rp_pay_8Kq2Xw91").replace("{payout_id}", "rp_po_3Vn7Lm20").replace("{transaction_id}", "rp_pay_8Kq2Xw91").replace("{virtual_account_id}", "rp_va_7Wp3Ls44")}`;
 }
 
 export function requestExamples(endpoint: ApiEndpoint): Record<CodeLanguage, string> {

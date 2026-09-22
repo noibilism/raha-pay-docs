@@ -11,10 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiReferenceRouteImport } from './routes/api-reference'
+import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as ReferenceRouteImport } from './routes/reference'
 import { Route as ApiReferenceIndexRouteImport } from './routes/api-reference.index'
 import { Route as ApiReferenceSlugRouteImport } from './routes/api-reference.$slug'
+import { Route as ApiAssistantFeedbackRouteImport } from './routes/api.assistant-feedback'
+import { Route as ApiChatRouteImport } from './routes/api.chat'
 import { Route as GuidesSlugRouteImport } from './routes/guides.$slug'
+import { Route as GuidesAmountMismatchesRouteImport } from './routes/guides.amount-mismatches'
+import { Route as GuidesDedicatedAccountsRouteImport } from './routes/guides.dedicated-accounts'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,6 +29,11 @@ const IndexRoute = IndexRouteImport.update({
 const ApiReferenceRoute = ApiReferenceRouteImport.update({
   id: '/api-reference',
   path: '/api-reference',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
+  id: '/llms.txt',
+  path: '/llms.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReferenceRoute = ReferenceRouteImport.update({
@@ -41,34 +51,69 @@ const ApiReferenceSlugRoute = ApiReferenceSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ApiReferenceRoute,
 } as any)
+const ApiAssistantFeedbackRoute = ApiAssistantFeedbackRouteImport.update({
+  id: '/api/assistant-feedback',
+  path: '/api/assistant-feedback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuidesSlugRoute = GuidesSlugRouteImport.update({
   id: '/guides/$slug',
   path: '/guides/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesAmountMismatchesRoute = GuidesAmountMismatchesRouteImport.update({
+  id: '/guides/amount-mismatches',
+  path: '/guides/amount-mismatches',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesDedicatedAccountsRoute = GuidesDedicatedAccountsRouteImport.update({
+  id: '/guides/dedicated-accounts',
+  path: '/guides/dedicated-accounts',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api-reference': typeof ApiReferenceRouteWithChildren
+  '/llms.txt': typeof LlmsDottxtRoute
   '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
+  '/api/assistant-feedback': typeof ApiAssistantFeedbackRoute
+  '/api/chat': typeof ApiChatRoute
   '/guides/$slug': typeof GuidesSlugRoute
+  '/guides/amount-mismatches': typeof GuidesAmountMismatchesRoute
+  '/guides/dedicated-accounts': typeof GuidesDedicatedAccountsRoute
   '/api-reference/': typeof ApiReferenceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
+  '/api/assistant-feedback': typeof ApiAssistantFeedbackRoute
+  '/api/chat': typeof ApiChatRoute
   '/guides/$slug': typeof GuidesSlugRoute
+  '/guides/amount-mismatches': typeof GuidesAmountMismatchesRoute
+  '/guides/dedicated-accounts': typeof GuidesDedicatedAccountsRoute
   '/api-reference': typeof ApiReferenceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api-reference': typeof ApiReferenceRouteWithChildren
+  '/llms.txt': typeof LlmsDottxtRoute
   '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
+  '/api/assistant-feedback': typeof ApiAssistantFeedbackRoute
+  '/api/chat': typeof ApiChatRoute
   '/guides/$slug': typeof GuidesSlugRoute
+  '/guides/amount-mismatches': typeof GuidesAmountMismatchesRoute
+  '/guides/dedicated-accounts': typeof GuidesDedicatedAccountsRoute
   '/api-reference/': typeof ApiReferenceIndexRoute
 }
 export interface FileRouteTypes {
@@ -76,32 +121,52 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/api-reference'
+    | '/llms.txt'
     | '/reference'
     | '/api-reference/$slug'
+    | '/api/assistant-feedback'
+    | '/api/chat'
     | '/guides/$slug'
+    | '/guides/amount-mismatches'
+    | '/guides/dedicated-accounts'
     | '/api-reference/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/llms.txt'
     | '/reference'
     | '/api-reference/$slug'
+    | '/api/assistant-feedback'
+    | '/api/chat'
     | '/guides/$slug'
+    | '/guides/amount-mismatches'
+    | '/guides/dedicated-accounts'
     | '/api-reference'
   id:
     | '__root__'
     | '/'
     | '/api-reference'
+    | '/llms.txt'
     | '/reference'
     | '/api-reference/$slug'
+    | '/api/assistant-feedback'
+    | '/api/chat'
     | '/guides/$slug'
+    | '/guides/amount-mismatches'
+    | '/guides/dedicated-accounts'
     | '/api-reference/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiReferenceRoute: typeof ApiReferenceRouteWithChildren
+  LlmsDottxtRoute: typeof LlmsDottxtRoute
   ReferenceRoute: typeof ReferenceRoute
+  ApiAssistantFeedbackRoute: typeof ApiAssistantFeedbackRoute
+  ApiChatRoute: typeof ApiChatRoute
   GuidesSlugRoute: typeof GuidesSlugRoute
+  GuidesAmountMismatchesRoute: typeof GuidesAmountMismatchesRoute
+  GuidesDedicatedAccountsRoute: typeof GuidesDedicatedAccountsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -118,6 +183,13 @@ declare module '@tanstack/react-router' {
       path: '/api-reference'
       fullPath: '/api-reference'
       preLoaderRoute: typeof ApiReferenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reference': {
@@ -141,11 +213,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiReferenceSlugRouteImport
       parentRoute: typeof ApiReferenceRoute
     }
+    '/api/assistant-feedback': {
+      id: '/api/assistant-feedback'
+      path: '/api/assistant-feedback'
+      fullPath: '/api/assistant-feedback'
+      preLoaderRoute: typeof ApiAssistantFeedbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guides/$slug': {
       id: '/guides/$slug'
       path: '/guides/$slug'
       fullPath: '/guides/$slug'
       preLoaderRoute: typeof GuidesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/amount-mismatches': {
+      id: '/guides/amount-mismatches'
+      path: '/guides/amount-mismatches'
+      fullPath: '/guides/amount-mismatches'
+      preLoaderRoute: typeof GuidesAmountMismatchesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/dedicated-accounts': {
+      id: '/guides/dedicated-accounts'
+      path: '/guides/dedicated-accounts'
+      fullPath: '/guides/dedicated-accounts'
+      preLoaderRoute: typeof GuidesDedicatedAccountsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -168,8 +268,13 @@ const ApiReferenceRouteWithChildren = ApiReferenceRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiReferenceRoute: ApiReferenceRouteWithChildren,
+  LlmsDottxtRoute: LlmsDottxtRoute,
   ReferenceRoute: ReferenceRoute,
+  ApiAssistantFeedbackRoute: ApiAssistantFeedbackRoute,
+  ApiChatRoute: ApiChatRoute,
   GuidesSlugRoute: GuidesSlugRoute,
+  GuidesAmountMismatchesRoute: GuidesAmountMismatchesRoute,
+  GuidesDedicatedAccountsRoute: GuidesDedicatedAccountsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

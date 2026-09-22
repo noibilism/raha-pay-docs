@@ -28,3 +28,11 @@
 - [x] Add searchable errors, event payload catalogue, and Kenyan bank/network reference data
 - [x] Add /reference and repair all external and internal links
 - [x] Verify light, dark, and 375px mobile views for home, guide, and endpoint pages
+
+## Layout, Virtual accounts and AI assistant
+
+- [x] Match the supplied shared shell, guide, home and API reference proportions
+- [x] Replace Dedicated accounts with Kenya Virtual accounts guides and six API endpoints
+- [x] Add grounded, streaming Raha Pay Assistant with secret blocking and visitor limits
+- [x] Add AI-readable llms.txt and Markdown mirrors
+- [x] Complete responsive, dark-mode, route and assistant validation

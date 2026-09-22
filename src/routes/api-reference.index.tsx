@@ -8,7 +8,7 @@ export const Route = createFileRoute("/api-reference/")({
   head: () => ({
     meta: [
       { title: "API Reference — Raha Pay Docs" },
-      { name: "description", content: "Complete KES endpoint reference for Raha Pay payments, payouts, dedicated accounts, balances and transactions." },
+      { name: "description", content: "Complete KES endpoint reference for Raha Pay payments, payouts, Virtual accounts, balances and transactions." },
       { property: "og:title", content: "Raha Pay API reference" },
       { property: "og:description", content: "Methods, request fields, examples, responses and errors for every Raha Pay KES endpoint." },
       { property: "og:type", content: "website" },

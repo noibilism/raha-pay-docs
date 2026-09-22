@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      assistant_question_logs: {
+        Row: {
+          created_at: string
+          id: string
+          question: string
+          rating: string | null
+          source_urls: string[]
+          updated_at: string
+          visitor_hash: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          question: string
+          rating?: string | null
+          source_urls?: string[]
+          updated_at?: string
+          visitor_hash: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          question?: string
+          rating?: string | null
+          source_urls?: string[]
+          updated_at?: string
+          visitor_hash?: string
+        }
+        Relationships: []
+      }
+      assistant_rate_limits: {
+        Row: {
+          created_at: string
+          id: string
+          question_count: number
+          updated_at: string
+          visitor_hash: string
+          window_start: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          question_count?: number
+          updated_at?: string
+          visitor_hash: string
+          window_start: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          question_count?: number
+          updated_at?: string
+          visitor_hash?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
