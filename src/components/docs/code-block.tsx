@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { useDocs } from "./docs-context";
 
 export function replaceEnvironment(value: string, environment: "sandbox" | "live") {
-  return value.replaceAll("{{BASE_URL_SANDBOX}}", environment === "sandbox" ? "{{BASE_URL_SANDBOX}}" : "{{BASE_URL_LIVE}}").replaceAll("{{BASE_URL_LIVE}}", environment === "live" ? "{{BASE_URL_LIVE}}" : "{{BASE_URL_SANDBOX}}");
+  const baseUrl = environment === "sandbox" ? "{{BASE_URL_SANDBOX}}" : "{{BASE_URL_LIVE}}";
+  return value.replaceAll("{{BASE_URL}}", baseUrl).replaceAll("{{BASE_URL_SANDBOX}}", baseUrl).replaceAll("{{BASE_URL_LIVE}}", baseUrl);
 }
 
 export function CodeBlock({ code, label = "Example" }: { code: string; label?: string }) {

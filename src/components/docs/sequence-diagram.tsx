@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 const configs = {
-  mobile: { actors:["Customer","Merchant","Raha Pay","Mobile network"], steps:[["Merchant","Raha Pay","Create KES charge"],["Raha Pay","Mobile network","Send STK request"],["Mobile network","Customer","Prompt for wallet PIN"],["Customer","Mobile network","Approve payment"],["Mobile network","Raha Pay","Confirm result"],["Raha Pay","Merchant","Signed webhook"]] },
+  mobile: { actors:["Customer","Merchant","Raha Pay","Mobile network"], steps:[["Merchant","Raha Pay","Create payment"],["Raha Pay","Mobile network","Send STK request"],["Mobile network","Customer","Prompt for wallet PIN"],["Customer","Mobile network","Approve payment"],["Mobile network","Raha Pay","Confirm result"],["Raha Pay","Merchant","Signed webhook"]] },
   payout: { actors:["Merchant","Raha Pay","Destination"], steps:[["Merchant","Raha Pay","Create payout"],["Raha Pay","Raha Pay","Validate and reserve"],["Raha Pay","Destination","Submit transfer"],["Destination","Raha Pay","Return final status"],["Raha Pay","Merchant","Signed webhook"]] },
   webhook: { actors:["Raha Pay","Merchant endpoint","Worker"], steps:[["Raha Pay","Merchant endpoint","Signed event"],["Merchant endpoint","Merchant endpoint","Verify and deduplicate"],["Merchant endpoint","Worker","Queue event"],["Merchant endpoint","Raha Pay","Return 2xx"],["Worker","Worker","Apply business update"]] }
 };
