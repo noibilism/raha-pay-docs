@@ -11,10 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiReferenceRouteImport } from './routes/api-reference'
+import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as ReferenceRouteImport } from './routes/reference'
 import { Route as ApiReferenceIndexRouteImport } from './routes/api-reference.index'
 import { Route as ApiReferenceSlugRouteImport } from './routes/api-reference.$slug'
+import { Route as ApiReferenceSlugDotmdRouteImport } from './routes/api-reference.$slug[.]md'
 import { Route as GuidesSlugRouteImport } from './routes/guides.$slug'
+import { Route as GuidesSlugDotmdRouteImport } from './routes/guides.$slug[.]md'
+import { Route as GuidesAmountMismatchesRouteImport } from './routes/guides.amount-mismatches'
+import { Route as GuidesDedicatedAccountsRouteImport } from './routes/guides.dedicated-accounts'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,6 +29,11 @@ const IndexRoute = IndexRouteImport.update({
 const ApiReferenceRoute = ApiReferenceRouteImport.update({
   id: '/api-reference',
   path: '/api-reference',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
+  id: '/llms.txt',
+  path: '/llms.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReferenceRoute = ReferenceRouteImport.update({
@@ -41,34 +51,69 @@ const ApiReferenceSlugRoute = ApiReferenceSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ApiReferenceRoute,
 } as any)
+const ApiReferenceSlugDotmdRoute = ApiReferenceSlugDotmdRouteImport.update({
+  id: '/$slug.md',
+  path: '/$slug.md',
+  getParentRoute: () => ApiReferenceRoute,
+} as any)
 const GuidesSlugRoute = GuidesSlugRouteImport.update({
   id: '/guides/$slug',
   path: '/guides/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesSlugDotmdRoute = GuidesSlugDotmdRouteImport.update({
+  id: '/guides/$slug.md',
+  path: '/guides/$slug.md',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesAmountMismatchesRoute = GuidesAmountMismatchesRouteImport.update({
+  id: '/guides/amount-mismatches',
+  path: '/guides/amount-mismatches',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesDedicatedAccountsRoute = GuidesDedicatedAccountsRouteImport.update({
+  id: '/guides/dedicated-accounts',
+  path: '/guides/dedicated-accounts',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api-reference': typeof ApiReferenceRouteWithChildren
+  '/llms.txt': typeof LlmsDottxtRoute
   '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
+  '/api-reference/$slug.md': typeof ApiReferenceSlugDotmdRoute
   '/guides/$slug': typeof GuidesSlugRoute
+  '/guides/$slug.md': typeof GuidesSlugDotmdRoute
+  '/guides/amount-mismatches': typeof GuidesAmountMismatchesRoute
+  '/guides/dedicated-accounts': typeof GuidesDedicatedAccountsRoute
   '/api-reference/': typeof ApiReferenceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
+  '/api-reference/$slug.md': typeof ApiReferenceSlugDotmdRoute
   '/guides/$slug': typeof GuidesSlugRoute
+  '/guides/$slug.md': typeof GuidesSlugDotmdRoute
+  '/guides/amount-mismatches': typeof GuidesAmountMismatchesRoute
+  '/guides/dedicated-accounts': typeof GuidesDedicatedAccountsRoute
   '/api-reference': typeof ApiReferenceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api-reference': typeof ApiReferenceRouteWithChildren
+  '/llms.txt': typeof LlmsDottxtRoute
   '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
+  '/api-reference/$slug.md': typeof ApiReferenceSlugDotmdRoute
   '/guides/$slug': typeof GuidesSlugRoute
+  '/guides/$slug.md': typeof GuidesSlugDotmdRoute
+  '/guides/amount-mismatches': typeof GuidesAmountMismatchesRoute
+  '/guides/dedicated-accounts': typeof GuidesDedicatedAccountsRoute
   '/api-reference/': typeof ApiReferenceIndexRoute
 }
 export interface FileRouteTypes {
@@ -76,32 +121,51 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/api-reference'
+    | '/llms.txt'
     | '/reference'
     | '/api-reference/$slug'
+    | '/api-reference/$slug.md'
     | '/guides/$slug'
+    | '/guides/$slug.md'
+    | '/guides/amount-mismatches'
+    | '/guides/dedicated-accounts'
     | '/api-reference/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/llms.txt'
     | '/reference'
     | '/api-reference/$slug'
+    | '/api-reference/$slug.md'
     | '/guides/$slug'
+    | '/guides/$slug.md'
+    | '/guides/amount-mismatches'
+    | '/guides/dedicated-accounts'
     | '/api-reference'
   id:
     | '__root__'
     | '/'
     | '/api-reference'
+    | '/llms.txt'
     | '/reference'
     | '/api-reference/$slug'
+    | '/api-reference/$slug.md'
     | '/guides/$slug'
+    | '/guides/$slug.md'
+    | '/guides/amount-mismatches'
+    | '/guides/dedicated-accounts'
     | '/api-reference/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiReferenceRoute: typeof ApiReferenceRouteWithChildren
+  LlmsDottxtRoute: typeof LlmsDottxtRoute
   ReferenceRoute: typeof ReferenceRoute
   GuidesSlugRoute: typeof GuidesSlugRoute
+  GuidesSlugDotmdRoute: typeof GuidesSlugDotmdRoute
+  GuidesAmountMismatchesRoute: typeof GuidesAmountMismatchesRoute
+  GuidesDedicatedAccountsRoute: typeof GuidesDedicatedAccountsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -118,6 +182,13 @@ declare module '@tanstack/react-router' {
       path: '/api-reference'
       fullPath: '/api-reference'
       preLoaderRoute: typeof ApiReferenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reference': {
@@ -141,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiReferenceSlugRouteImport
       parentRoute: typeof ApiReferenceRoute
     }
+    '/api-reference/$slug.md': {
+      id: '/api-reference/$slug.md'
+      path: '/$slug.md'
+      fullPath: '/api-reference/$slug.md'
+      preLoaderRoute: typeof ApiReferenceSlugDotmdRouteImport
+      parentRoute: typeof ApiReferenceRoute
+    }
     '/guides/$slug': {
       id: '/guides/$slug'
       path: '/guides/$slug'
@@ -148,16 +226,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuidesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/$slug.md': {
+      id: '/guides/$slug.md'
+      path: '/guides/$slug.md'
+      fullPath: '/guides/$slug.md'
+      preLoaderRoute: typeof GuidesSlugDotmdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/amount-mismatches': {
+      id: '/guides/amount-mismatches'
+      path: '/guides/amount-mismatches'
+      fullPath: '/guides/amount-mismatches'
+      preLoaderRoute: typeof GuidesAmountMismatchesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/dedicated-accounts': {
+      id: '/guides/dedicated-accounts'
+      path: '/guides/dedicated-accounts'
+      fullPath: '/guides/dedicated-accounts'
+      preLoaderRoute: typeof GuidesDedicatedAccountsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface ApiReferenceRouteChildren {
   ApiReferenceSlugRoute: typeof ApiReferenceSlugRoute
+  ApiReferenceSlugDotmdRoute: typeof ApiReferenceSlugDotmdRoute
   ApiReferenceIndexRoute: typeof ApiReferenceIndexRoute
 }
 
 const ApiReferenceRouteChildren: ApiReferenceRouteChildren = {
   ApiReferenceSlugRoute: ApiReferenceSlugRoute,
+  ApiReferenceSlugDotmdRoute: ApiReferenceSlugDotmdRoute,
   ApiReferenceIndexRoute: ApiReferenceIndexRoute,
 }
 
@@ -168,8 +269,12 @@ const ApiReferenceRouteWithChildren = ApiReferenceRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiReferenceRoute: ApiReferenceRouteWithChildren,
+  LlmsDottxtRoute: LlmsDottxtRoute,
   ReferenceRoute: ReferenceRoute,
   GuidesSlugRoute: GuidesSlugRoute,
+  GuidesSlugDotmdRoute: GuidesSlugDotmdRoute,
+  GuidesAmountMismatchesRoute: GuidesAmountMismatchesRoute,
+  GuidesDedicatedAccountsRoute: GuidesDedicatedAccountsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
