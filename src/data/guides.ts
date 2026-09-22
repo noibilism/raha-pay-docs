@@ -134,7 +134,7 @@ export const guides: Guide[] = [
   s("errors","Conversion errors",["Handle unsupported pair, quote expired, quote already used, insufficient source balance and rate unavailable as distinct outcomes."])
  ]),
  g("statuses","Reference","Transaction statuses","Interpret transaction states consistently across your product.",[
-  s("common","Common states",["Status names are lower-case strings."],{table:{headers:["Status","Meaning","Terminal"],rows:[["pending","Created and awaiting customer or network action","No"],["queued","Accepted and waiting for processing","No"],["processing","Submitted to a payment network","No"],["successful","Completed and confirmed","Yes"],["failed","Could not complete","Yes"],["reversed","A completed movement was returned","Yes"],["cancelled","Stopped before completion","Yes"],["expired","Timed instruction or quote is no longer valid","Yes"]]}}),
+  s("common","Common states",["Status names are lower-case strings."],{table:{headers:["Status","Meaning","Terminal"],rows:[["initiated","Created and ready for the next action","No"],["pending","Created and awaiting customer or network action","No"],["processing","Submitted to a payment network","No"],["successful","Completed and confirmed","Yes"],["failed","Could not complete","Yes"],["reversed","A completed movement was returned","Yes"]]}}),
   s("transitions","Safe transitions",["Do not move a terminal transaction back to processing. Store event timestamps and ignore older updates. Investigate conflicting terminal events instead of overwriting them silently."])
  ]),
  g("error-codes","Reference","Error codes","Handle Raha Pay failures with stable machine-readable codes.",[
