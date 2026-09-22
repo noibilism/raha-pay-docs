@@ -79,9 +79,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Rahapay Developer Documentation" },
-      { name: "description", content: "Developer documentation for Rahapay's KES payments API." },
-      { name: "author", content: "Rahapay" },
+      { title: "Raha Pay Developer Documentation" },
+      { name: "description", content: "Developer documentation for Raha Pay's KES payments API." },
+      { name: "author", content: "Raha Pay" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },

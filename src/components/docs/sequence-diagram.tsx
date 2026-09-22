@@ -1,8 +1,8 @@
 import { ArrowRight } from "lucide-react";
 const configs = {
-  mobile: { actors:["Customer","Merchant","Rahapay","Mobile network"], steps:[["Merchant","Rahapay","Create KES charge"],["Rahapay","Mobile network","Send STK request"],["Mobile network","Customer","Prompt for wallet PIN"],["Customer","Mobile network","Approve payment"],["Mobile network","Rahapay","Confirm result"],["Rahapay","Merchant","Signed webhook"]] },
-  payout: { actors:["Merchant","Rahapay","Destination"], steps:[["Merchant","Rahapay","Create payout"],["Rahapay","Rahapay","Validate and reserve"],["Rahapay","Destination","Submit transfer"],["Destination","Rahapay","Return final status"],["Rahapay","Merchant","Signed webhook"]] },
-  webhook: { actors:["Rahapay","Merchant endpoint","Worker"], steps:[["Rahapay","Merchant endpoint","Signed event"],["Merchant endpoint","Merchant endpoint","Verify and deduplicate"],["Merchant endpoint","Worker","Queue event"],["Merchant endpoint","Rahapay","Return 2xx"],["Worker","Worker","Apply business update"]] }
+  mobile: { actors:["Customer","Merchant","Raha Pay","Mobile network"], steps:[["Merchant","Raha Pay","Create KES charge"],["Raha Pay","Mobile network","Send STK request"],["Mobile network","Customer","Prompt for wallet PIN"],["Customer","Mobile network","Approve payment"],["Mobile network","Raha Pay","Confirm result"],["Raha Pay","Merchant","Signed webhook"]] },
+  payout: { actors:["Merchant","Raha Pay","Destination"], steps:[["Merchant","Raha Pay","Create payout"],["Raha Pay","Raha Pay","Validate and reserve"],["Raha Pay","Destination","Submit transfer"],["Destination","Raha Pay","Return final status"],["Raha Pay","Merchant","Signed webhook"]] },
+  webhook: { actors:["Raha Pay","Merchant endpoint","Worker"], steps:[["Raha Pay","Merchant endpoint","Signed event"],["Merchant endpoint","Merchant endpoint","Verify and deduplicate"],["Merchant endpoint","Worker","Queue event"],["Merchant endpoint","Raha Pay","Return 2xx"],["Worker","Worker","Apply business update"]] }
 };
 export function SequenceDiagram({ type }: { type: keyof typeof configs }) {
   const config=configs[type];
