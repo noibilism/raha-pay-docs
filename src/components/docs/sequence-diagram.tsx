@@ -46,6 +46,18 @@ const diagrams = {
     Rail-->>Phone: Credit recipient
     Rail-->>Raha: Return final status
     Raha-->>Server: Send signed webhook`,
+  virtual: `sequenceDiagram
+    participant Customer as Customer
+    participant Bank as [PARTNER BANK]
+    participant Raha as Raha Pay
+    participant Server as Your server
+    Server->>Raha: Create Virtual account with KYC
+    Raha->>Bank: Issue account details
+    Bank-->>Raha: Activate account
+    Raha-->>Server: Return rp_va_ account
+    Customer->>Bank: Send KES transfer
+    Bank-->>Raha: Confirm incoming credit
+    Raha-->>Server: Send signed credit event`,
   webhook: `sequenceDiagram
     participant Raha as Raha Pay
     participant Server as Your server
