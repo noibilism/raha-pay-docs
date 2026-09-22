@@ -10,33 +10,61 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiReferenceRouteImport } from './routes/api-reference'
+import { Route as ApiReferenceRouteImport } from './routes/api-reference.'
+import { Route as GuidesRouteImport } from './routes/guides.'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiReferenceRoute = ApiReferenceRouteImport.update({
+  id: '/api-reference',
+  path: '/api-reference',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiReferenceRoute = ApiReferenceRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ApiReferenceRoute,
+} as any)
+const GuidesRoute = GuidesRouteImport.update({
+  id: '/guides/',
+  path: '/guides/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api-reference': typeof ApiReferenceRouteWithChildren
+  '/api-reference/': typeof ApiReferenceRoute
+  '/guides/': typeof GuidesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api-reference': typeof ApiReferenceRoute
+  '/guides': typeof GuidesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api-reference': typeof ApiReferenceRouteWithChildren
+  '/api-reference/': typeof ApiReferenceRoute
+  '/guides/': typeof GuidesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/api-reference' | '/api-reference/' | '/guides/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api-reference' | '/guides'
+  id: '__root__' | '/' | '/api-reference' | '/api-reference/' | '/guides/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiReferenceRoute: typeof ApiReferenceRouteWithChildren
+  GuidesRoute: typeof GuidesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +76,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api-reference': {
+      id: '/api-reference'
+      path: '/api-reference'
+      fullPath: '/api-reference'
+      preLoaderRoute: typeof ApiReferenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api-reference/': {
+      id: '/api-reference/'
+      path: '/'
+      fullPath: '/api-reference/'
+      preLoaderRoute: typeof ApiReferenceRouteImport
+      parentRoute: typeof ApiReferenceRoute
+    }
+    '/guides/': {
+      id: '/guides/'
+      path: '/guides'
+      fullPath: '/guides/'
+      preLoaderRoute: typeof GuidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface ApiReferenceRouteChildren {
+  ApiReferenceRoute: typeof ApiReferenceRoute
+}
+
+const ApiReferenceRouteChildren: ApiReferenceRouteChildren = {
+  ApiReferenceRoute: ApiReferenceRoute,
+}
+
+const ApiReferenceRouteWithChildren = ApiReferenceRoute._addFileChildren(
+  ApiReferenceRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiReferenceRoute: ApiReferenceRouteWithChildren,
+  GuidesRoute: GuidesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
