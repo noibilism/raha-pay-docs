@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { DocsProvider } from "../components/docs/docs-context";
+import { AssistantProvider } from "../components/docs/assistant-context";
+import { AssistantPanel } from "../components/docs/assistant-panel";
 import { Button } from "../components/ui/button";
 
 function NotFoundComponent() {
@@ -123,7 +125,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <DocsProvider><Outlet /></DocsProvider>
+      <DocsProvider><AssistantProvider><Outlet /><AssistantPanel /></AssistantProvider></DocsProvider>
     </QueryClientProvider>
   );
 }
