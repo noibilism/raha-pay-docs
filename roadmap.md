@@ -8,10 +8,10 @@
 - [x] Validate content exclusions, interactions and preview rendering
 
 - [x] Apply supplied Raha Pay brand assets and complete visual identity pass
-- [x] Derive the top-bar mark and favicon from the supplied Raha Pay logo
+- [x] Use the exact supplied Raha Pay mark, hero lockup, and favicon
 
-- [ ] Remove all conversion, cross-currency, and scope-note content
-- [ ] Restructure guides into Start Here, Accept Payments, Send Money, Account, Events, and Reference
-- [ ] Rewrite guides in Raha Pay voice and required page order
-- [ ] Normalize API paths, snake_case fields, envelopes, IDs, events, HMAC-SHA256, and errors
-- [ ] Verify every navigation link, search result, page, forbidden term, and responsive layout
+- [x] Remove all conversion, cross-currency, and scope-note content
+- [x] Restructure guides into Start Here, Accept Payments, Send Money, Account, Events, and Reference
+- [x] Rewrite guides in Raha Pay voice and required page order
+- [x] Normalize API paths, snake_case fields, envelopes, IDs, events, HMAC-SHA256, and errors
+- [x] Verify every navigation link, search result, page, forbidden term, and responsive layout
