@@ -1,13 +1,83 @@
-import { ArrowRight } from "lucide-react";
-const configs = {
-  mobile: { actors:["Customer","Merchant","Raha Pay","Mobile network"], steps:[["Merchant","Raha Pay","Create payment"],["Raha Pay","Mobile network","Send STK request"],["Mobile network","Customer","Prompt for wallet PIN"],["Customer","Mobile network","Approve payment"],["Mobile network","Raha Pay","Confirm result"],["Raha Pay","Merchant","Signed webhook"]] },
-  payout: { actors:["Merchant","Raha Pay","Destination"], steps:[["Merchant","Raha Pay","Create payout"],["Raha Pay","Raha Pay","Validate and reserve"],["Raha Pay","Destination","Submit transfer"],["Destination","Raha Pay","Return final status"],["Raha Pay","Merchant","Signed webhook"]] },
-  webhook: { actors:["Raha Pay","Merchant endpoint","Worker"], steps:[["Raha Pay","Merchant endpoint","Signed event"],["Merchant endpoint","Merchant endpoint","Verify and deduplicate"],["Merchant endpoint","Worker","Queue event"],["Merchant endpoint","Raha Pay","Return 2xx"],["Worker","Worker","Apply business update"]] }
+import { useEffect, useId, useState } from "react";
+import { useDocs } from "./docs-context";
+
+const diagrams = {
+  mobile: `sequenceDiagram
+    participant Server as Your server
+    participant Raha as Raha Pay
+    participant Rail as M-Pesa
+    participant Phone as Customer's phone
+    Server->>Raha: Create payment
+    Raha->>Rail: Send STK request
+    Rail->>Phone: Show PIN prompt
+    Phone-->>Rail: Customer approves
+    Rail-->>Raha: Confirm result
+    Raha-->>Server: Send signed webhook`,
+  airtel: `sequenceDiagram
+    participant Server as Your server
+    participant Raha as Raha Pay
+    participant Rail as Airtel Money
+    participant Phone as Customer's phone
+    Server->>Raha: Create payment
+    Raha->>Rail: Send approval request
+    Rail->>Phone: Show confirmation prompt
+    Phone-->>Rail: Customer approves
+    Rail-->>Raha: Confirm result
+    Raha-->>Server: Send signed webhook`,
+  bank: `sequenceDiagram
+    participant Server as Your server
+    participant Raha as Raha Pay
+    participant Bank as Bank
+    participant Phone as Customer's phone
+    Server->>Raha: Create bank payment
+    Raha-->>Server: Return account details
+    Server-->>Phone: Display transfer instructions
+    Phone->>Bank: Customer sends transfer
+    Bank-->>Raha: Confirm credit
+    Raha-->>Server: Send signed webhook`,
+  payout: `sequenceDiagram
+    participant Server as Your server
+    participant Raha as Raha Pay
+    participant Rail as M-Pesa or bank
+    participant Phone as Recipient
+    Server->>Raha: Create payout
+    Raha->>Raha: Validate and reserve funds
+    Raha->>Rail: Submit transfer
+    Rail-->>Phone: Credit recipient
+    Rail-->>Raha: Return final status
+    Raha-->>Server: Send signed webhook`,
+  webhook: `sequenceDiagram
+    participant Raha as Raha Pay
+    participant Server as Your server
+    participant Worker as Your worker
+    Raha->>Server: POST signed event
+    Server->>Server: Verify raw body
+    Server->>Server: Deduplicate event ID
+    Server->>Worker: Queue business update
+    Server-->>Raha: Return HTTP 200
+    Worker->>Worker: Apply update`,
 };
-export function SequenceDiagram({ type }: { type: keyof typeof configs }) {
-  const config=configs[type];
-  return <div className="my-6 overflow-x-auto rounded-[10px] border bg-surface-raised p-4" role="img" aria-label={`${type} sequence diagram`}>
-    <div className="grid min-w-[560px] grid-cols-4 gap-2">{config.actors.map((actor)=><div key={actor} className="rounded-md border bg-background px-2 py-2 text-center text-xs font-semibold">{actor}</div>)}</div>
-    <ol className="mt-4 min-w-[560px] space-y-2">{config.steps.map(([from,to,label],index)=><li key={`${label}-${index}`} className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 text-xs"><span className="text-right font-medium">{from}</span><span className="flex items-center gap-2 text-muted-foreground"><span className="w-5 text-right font-mono">{index+1}</span><ArrowRight className="size-3.5"/></span><span><strong className="font-medium">{to}</strong><span className="ml-2 text-muted-foreground">{label}</span></span></li>)}</ol>
-  </div>;
+
+export type DiagramType = keyof typeof diagrams;
+
+export function SequenceDiagram({ type }: { type: DiagramType }) {
+  const id = useId().replaceAll(":", "");
+  const { theme } = useDocs();
+  const [svg, setSvg] = useState("");
+  useEffect(() => {
+    let active = true;
+    void import("mermaid").then(async ({ default: mermaid }) => {
+      mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: "base", fontFamily: "Nunito Sans", themeVariables: {
+        primaryColor: theme === "dark" ? "#231B52" : "#EFE8FD", primaryTextColor: theme === "dark" ? "#F2F2FA" : "#0E0F2E",
+        primaryBorderColor: theme === "dark" ? "#A57BFF" : "#6E2EDB", lineColor: theme === "dark" ? "#A9ABCB" : "#585A78",
+        signalColor: theme === "dark" ? "#A9ABCB" : "#585A78", signalTextColor: theme === "dark" ? "#F2F2FA" : "#0E0F2E",
+        actorBkg: theme === "dark" ? "#231B52" : "#EFE8FD", actorBorder: theme === "dark" ? "#A57BFF" : "#6E2EDB",
+        actorTextColor: theme === "dark" ? "#F2F2FA" : "#0E0F2E", noteBkgColor: theme === "dark" ? "#14163D" : "#FFFFFF",
+      }});
+      const result = await mermaid.render(`diagram-${id}`, diagrams[type]);
+      if (active) setSvg(result.svg);
+    });
+    return () => { active = false; };
+  }, [id, theme, type]);
+  return <div className="my-6 overflow-x-auto rounded-[10px] border bg-surface-raised p-4" role="img" aria-label={`${type} sequence diagram`}><div className="min-w-[620px]" dangerouslySetInnerHTML={{ __html: svg }} /></div>;
 }
