@@ -7,5 +7,5 @@
 - [x] Add route-specific metadata and mobile styling
 - [x] Validate content exclusions, interactions and preview rendering
 
-- [ ] Apply supplied Raha Pay brand assets and complete visual identity pass
-- [ ] Derive the top-bar mark and favicon from the supplied Raha Pay logo
+- [x] Apply supplied Raha Pay brand assets and complete visual identity pass
+- [x] Derive the top-bar mark and favicon from the supplied Raha Pay logo
