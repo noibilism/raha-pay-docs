@@ -8,7 +8,7 @@ import { guides, guideGroups } from "@/data/guides";
 import { endpointGroups, endpoints } from "@/data/endpoints";
 import { useDocs } from "./docs-context";
 import { cn } from "@/lib/utils";
-import markAsset from "@/assets/rahapay-mark.png.asset.json";
+import markAsset from "@/assets/rahapay-mark-exact.png.asset.json";
 
 function Navigation({ close }: { close?: () => void }) {
   const pathname=useLocation({select:(location)=>location.pathname});
