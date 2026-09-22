@@ -2,10 +2,20 @@ import { Check, Copy } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useDocs } from "./docs-context";
+import { docsConfig, environmentValues } from "@/data/config";
 
 export function replaceEnvironment(value: string, environment: "sandbox" | "live") {
-  const baseUrl = environment === "sandbox" ? "{{BASE_URL_SANDBOX}}" : "{{BASE_URL_LIVE}}";
-  return value.replaceAll("{{BASE_URL}}", baseUrl).replaceAll("{{BASE_URL_SANDBOX}}", baseUrl).replaceAll("{{BASE_URL_LIVE}}", baseUrl);
+  const values = environmentValues(environment);
+  return value
+    .replaceAll("{{BASE_URL}}", values.baseUrl)
+    .replaceAll("{{BASE_URL_SANDBOX}}", docsConfig.baseUrls.sandbox)
+    .replaceAll("{{BASE_URL_LIVE}}", docsConfig.baseUrls.live)
+    .replaceAll("{{AUTH_HEADER}}", docsConfig.authHeader)
+    .replaceAll("{{SECRET_KEY_PREFIX}}test_example", values.secretKey)
+    .replaceAll("{{PUBLIC_KEY_PREFIX}}test_example", values.publicKey)
+    .replaceAll("{{WEBHOOK_SIGNATURE_HEADER}}", docsConfig.webhookSignatureHeader)
+    .replaceAll("{{DASHBOARD_URL}}", docsConfig.dashboardUrl)
+    .replaceAll("{{SUPPORT_EMAIL}}", docsConfig.supportEmail);
 }
 
 export function CodeBlock({ code, label = "Example" }: { code: string; label?: string }) {

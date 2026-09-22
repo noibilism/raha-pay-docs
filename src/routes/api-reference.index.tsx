@@ -9,7 +9,7 @@ export const Route = createFileRoute("/api-reference/")({
     meta: [
       { title: "API Reference — Raha Pay Docs" },
       { name: "description", content: "Complete KES endpoint reference for Raha Pay payments, payouts, dedicated accounts, balances and transactions." },
-      { property: "og:title", content: "Raha Pay KES API Reference" },
+      { property: "og:title", content: "Raha Pay API reference" },
       { property: "og:description", content: "Methods, request fields, examples, responses and errors for every Raha Pay KES endpoint." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -22,8 +22,8 @@ function ApiIndex() {
   return (
     <DocsShell currentPath="/api-reference" api>
       <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.18em] text-ink-muted">API Reference</p>
-      <h1 className="font-display text-[28px] font-extrabold leading-9">KES API endpoints</h1>
-      <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">Build and reconcile every Raha Pay money movement with predictable JSON endpoints.</p>
+      <h1 className="font-display text-[28px] font-extrabold leading-9">API reference</h1>
+      <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">Explore payments, payouts, accounts and reporting endpoints with complete request and response examples.</p>
       <div className="mt-12 space-y-10">
         {endpointGroups.map((group) => (
           <section key={group}>

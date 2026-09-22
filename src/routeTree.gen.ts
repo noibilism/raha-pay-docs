@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiReferenceRouteImport } from './routes/api-reference'
+import { Route as ReferenceRouteImport } from './routes/reference'
 import { Route as ApiReferenceIndexRouteImport } from './routes/api-reference.index'
 import { Route as ApiReferenceSlugRouteImport } from './routes/api-reference.$slug'
 import { Route as GuidesSlugRouteImport } from './routes/guides.$slug'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const ApiReferenceRoute = ApiReferenceRouteImport.update({
   id: '/api-reference',
   path: '/api-reference',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReferenceRoute = ReferenceRouteImport.update({
+  id: '/reference',
+  path: '/reference',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiReferenceIndexRoute = ApiReferenceIndexRouteImport.update({
@@ -44,12 +50,14 @@ const GuidesSlugRoute = GuidesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api-reference': typeof ApiReferenceRouteWithChildren
+  '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/api-reference/': typeof ApiReferenceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/api-reference': typeof ApiReferenceIndexRoute
@@ -58,6 +66,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api-reference': typeof ApiReferenceRouteWithChildren
+  '/reference': typeof ReferenceRoute
   '/api-reference/$slug': typeof ApiReferenceSlugRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/api-reference/': typeof ApiReferenceIndexRoute
@@ -67,15 +76,22 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/api-reference'
+    | '/reference'
     | '/api-reference/$slug'
     | '/guides/$slug'
     | '/api-reference/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api-reference/$slug' | '/guides/$slug' | '/api-reference'
+  to:
+    | '/'
+    | '/reference'
+    | '/api-reference/$slug'
+    | '/guides/$slug'
+    | '/api-reference'
   id:
     | '__root__'
     | '/'
     | '/api-reference'
+    | '/reference'
     | '/api-reference/$slug'
     | '/guides/$slug'
     | '/api-reference/'
@@ -84,6 +100,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiReferenceRoute: typeof ApiReferenceRouteWithChildren
+  ReferenceRoute: typeof ReferenceRoute
   GuidesSlugRoute: typeof GuidesSlugRoute
 }
 
@@ -101,6 +118,13 @@ declare module '@tanstack/react-router' {
       path: '/api-reference'
       fullPath: '/api-reference'
       preLoaderRoute: typeof ApiReferenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reference': {
+      id: '/reference'
+      path: '/reference'
+      fullPath: '/reference'
+      preLoaderRoute: typeof ReferenceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api-reference/': {
@@ -144,6 +168,7 @@ const ApiReferenceRouteWithChildren = ApiReferenceRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiReferenceRoute: ApiReferenceRouteWithChildren,
+  ReferenceRoute: ReferenceRoute,
   GuidesSlugRoute: GuidesSlugRoute,
 }
 export const routeTree = rootRouteImport
